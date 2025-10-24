@@ -12,6 +12,10 @@ test('multiplies two numbers', () => {
     expect(calc.multiply(3, 4)).toBe(12);
 });
 
+test('modulus of two numbers', () => {
+    expect(calc.modulus(3, 6)).toBe(0);
+});
+
 test('divides two numbers', () => {
     expect(calc.divide(10, 2)).toBe(5);
 });
