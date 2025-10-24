@@ -9,15 +9,15 @@ test('subtracts two numbers', () => {
 });
 
 test('multiplies two numbers', () => {
-    expect(calc.multiply(3, 4)).toBe(12);
+    expect(calc.multiply(2, 3)).toBe(6);
 });
 
 test('modulus of two numbers', () => {
-    expect(calc.modulus(3, 6)).toBe(0);
+    expect(calc.modulus(3, 6)).toBe(3);  // <-- corrected expected value
 });
 
 test('divides two numbers', () => {
-    expect(calc.divide(10, 2)).toBe(5);
+    expect(calc.divide(6, 2)).toBe(3);
 });
 
 test('throws error when dividing by zero', () => {
