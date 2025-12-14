@@ -1,25 +1,61 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
+
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main')
+        string(name: 'BUILD_ENV', defaultValue: 'dev')
+        string(name: 'STUDENT_NAME', defaultValue: 'your name')
+    }
+
+    environment {
+        APP_VERSION = "1.0.0"
+    }
+
     stages {
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Building the project...'
-                // If using Node.js, you can later add: sh 'npm install'
+                echo "Installing Node.js dependencies..."
+                bat "npm install"
             }
         }
 
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'Running tests...'
-                // Later, you can add: sh 'npm test'
+                echo "Building Calculator App v${APP_VERSION} on branch ${params.BRANCH_NAME}"
+            }
+        }
+
+        stage('Unit Test') {
+            when {
+                expression { params.BUILD_ENV == 'dev' }
+            }
+            steps {
+                echo "Running unit tests with Jest..."
+                bat "npm test"
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying project...'
+                echo "Simulating deployment of Node.js Calculator App..."
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up workspace..."
+            // deleteDir()
+        }
+        success {
+            echo "Pipeline executed successfully."
+        }
+        failure {
+            echo "Pipeline failed."
         }
     }
 }
